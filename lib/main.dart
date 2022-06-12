@@ -5,7 +5,7 @@ import 'package:peter_seboyeng_module5/create.dart';
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
-      options: FirebaseOptions(
+      options: const FirebaseOptions(
           apiKey: "AIzaSyC5BXBDYluVyDZQXacjD8JfAkxGD_6F1Mc",
           authDomain: "module5-9c8a4.firebaseapp.com",
           projectId: "module5-9c8a4",
@@ -24,11 +24,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.deepOrange,
-        secondaryHeaderColor: Colors.orange,
-        accentColor: Colors.orangeAccent,
-        canvasColor: Colors.lightGreenAccent
-      ),
+          primarySwatch: Colors.deepOrange,
+          secondaryHeaderColor: Colors.orange,
+          accentColor: Colors.orangeAccent,
+          canvasColor: Colors.lightGreenAccent),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
@@ -49,13 +48,13 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: Center(
+        child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: const <Widget>[
-              Create()
-            ],
+            children: const <Widget>[Create()],
           ),
-          ),
+        ),
+      ),
     );
   }
 }
