@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:peter_seboyeng_module5/update_winner.dart';
 import 'package:peter_seboyeng_module5/winners.dart';
 
 class WinnerDetail extends StatelessWidget {
@@ -60,15 +61,12 @@ class WinnerDetail extends StatelessWidget {
                       padding: const EdgeInsets.all(8.0),
                       child: ElevatedButton(
                         onPressed: () {
-                          final docRef = FirebaseFirestore.instance
-                              .collection("winners")
-                              .doc(documentSnapShot["id"]);
-                          docRef.update({
-                            "winner_name": "",
-                            "app_category": "",
-                            "app_name": "",
-                            "year_award": ""
-                          });
+                          //final docRef = FirebaseFirestore.instance.collection("winners").doc(documentSnapShot["id"]);
+                          //docRef.update({"winner_name": "", "app_category": "", "app_name": "", "year_award": ""});
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const UpdateWinner()));
                         },
                         child: const Text("EDIT"),
                       ),
@@ -85,7 +83,7 @@ class WinnerDetail extends StatelessWidget {
                         },
                         child: const Text("DELETE"),
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),
