@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:peter_seboyeng_module5/winner_detail.dart';
 
 class Winners extends StatefulWidget {
   const Winners({Key? key}) : super(key: key);
@@ -38,9 +39,27 @@ class _WinnersState extends State<Winners> {
                         .map((DocumentSnapshot documentSnapShot) {
                           Map<String, dynamic> data =
                               documentSnapShot.data() as Map<String, dynamic>;
-                          return ListTile(
-                            title: Text(data['winner_name']),
-                            subtitle: Text(data['app_name']),
+                          return InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => WinnerDetail(
+                                          documentSnapShot: documentSnapShot)));
+                            },
+                            child: Card(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                side: BorderSide(
+                                  color: Colors.grey.withOpacity(0.2),
+                                  width: 1,
+                                ),
+                              ),
+                              child: ListTile(
+                                title: Text(data['winner_name']),
+                                subtitle: Text(data['app_name']),
+                              ),
+                            ),
                           );
                         })
                         .toList()

@@ -26,8 +26,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           primarySwatch: Colors.deepOrange,
           secondaryHeaderColor: Colors.orange,
-          accentColor: Colors.orangeAccent,
-          canvasColor: Colors.lightGreenAccent),
+          accentColor: Colors.orangeAccent),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
