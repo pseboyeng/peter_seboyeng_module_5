@@ -3,18 +3,23 @@ import 'package:flutter/material.dart';
 import 'package:peter_seboyeng_module5/update_winner.dart';
 import 'package:peter_seboyeng_module5/winners.dart';
 
-class WinnerDetail extends StatelessWidget {
+class WinnerDetail extends StatefulWidget {
   final DocumentSnapshot documentSnapShot;
 
   const WinnerDetail({Key? key, required this.documentSnapShot})
       : super(key: key);
 
   @override
+  State<WinnerDetail> createState() => _WinnerDetailState();
+}
+
+class _WinnerDetailState extends State<WinnerDetail> {
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-            "${documentSnapShot["year_award"]} - ${documentSnapShot["app_name"]}"),
+            "${widget.documentSnapShot["year_award"]} - ${widget.documentSnapShot["app_name"]}"),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -26,7 +31,7 @@ class WinnerDetail extends StatelessWidget {
                 child: Column(
                   children: [
                     Text(
-                      "Winner : " + documentSnapShot["winner_name"],
+                      "Winner : " + widget.documentSnapShot["winner_name"],
                       style: const TextStyle(
                           fontFamily: 'Poppins',
                           fontSize: 24.0,
@@ -34,7 +39,7 @@ class WinnerDetail extends StatelessWidget {
                           letterSpacing: 2.0),
                     ),
                     Text(
-                      "Category : " + documentSnapShot["app_category"],
+                      "Category : " + widget.documentSnapShot["app_category"],
                       style: TextStyle(
                           fontFamily: 'Poppins',
                           fontSize: 18.0,
@@ -42,7 +47,7 @@ class WinnerDetail extends StatelessWidget {
                           letterSpacing: 2.0),
                     ),
                     Text(
-                      "App Name : " + documentSnapShot["app_name"],
+                      "App Name : " + widget.documentSnapShot["app_name"],
                       style: TextStyle(
                           fontFamily: 'Poppins',
                           fontSize: 18.0,
@@ -50,7 +55,7 @@ class WinnerDetail extends StatelessWidget {
                           letterSpacing: 2.0),
                     ),
                     Text(
-                      "Year : " + documentSnapShot["year_award"],
+                      "Year : " + widget.documentSnapShot["year_award"],
                       style: TextStyle(
                           fontFamily: 'Poppins',
                           fontSize: 18.0,
@@ -61,12 +66,25 @@ class WinnerDetail extends StatelessWidget {
                       padding: const EdgeInsets.all(8.0),
                       child: ElevatedButton(
                         onPressed: () {
+                          String id = widget.documentSnapShot['id'];
+                          String winnerName =
+                              widget.documentSnapShot['winner_name'];
+                          String appCategory =
+                              widget.documentSnapShot['app_category'];
+                          String appName = widget.documentSnapShot['app_name'];
+                          String yearAward =
+                              widget.documentSnapShot['year_award'];
                           //final docRef = FirebaseFirestore.instance.collection("winners").doc(documentSnapShot["id"]);
                           //docRef.update({"winner_name": "", "app_category": "", "app_name": "", "year_award": ""});
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const UpdateWinner()));
+                                  builder: (context) => UpdateWinner(
+                                      id: id,
+                                      winnerName: winnerName,
+                                      appCategory: appCategory,
+                                      appName: appName,
+                                      yearAward: yearAward)));
                         },
                         child: const Text("EDIT"),
                       ),
@@ -77,7 +95,7 @@ class WinnerDetail extends StatelessWidget {
                         onPressed: () {
                           final docRef = FirebaseFirestore.instance
                               .collection("winners")
-                              .doc(documentSnapShot["id"]);
+                              .doc(widget.documentSnapShot["id"]);
                           docRef.delete();
                           Navigator.pop(context);
                         },

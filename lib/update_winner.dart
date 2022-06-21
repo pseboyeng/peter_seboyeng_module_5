@@ -1,10 +1,17 @@
 import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class UpdateWinner extends StatefulWidget {
-  const UpdateWinner({Key? key}) : super(key: key);
+  final String id, winnerName, appCategory, appName, yearAward;
+  const UpdateWinner(
+      {Key? key,
+      required this.id,
+      required this.winnerName,
+      required this.appCategory,
+      required this.appName,
+      required this.yearAward})
+      : super(key: key);
 
   @override
   State<UpdateWinner> createState() => _UpdateWinnerState();
@@ -19,14 +26,19 @@ class _UpdateWinnerState extends State<UpdateWinner> {
     TextEditingController appYearAwardController = TextEditingController();
 
     Future _updateWinner() {
-      final name = nameController.text;
-      final appCat = appCategoryController.text;
-      final appName = appNameController.text;
-      final appYearAward = appYearAwardController.text;
+      //final name = nameController.text;
+      //final appCat = appCategoryController.text;
+      //final appName = appNameController.text;
+      //final appYearAward = appYearAwardController.text;
 
-      final ref = FirebaseFirestore.instance.collection('winners').doc();
+      final ref = FirebaseFirestore.instance.collection('winners').doc("id");
       return ref
-          .update({})
+          .update({
+            "winner_name": nameController,
+            "app_category": appCategoryController,
+            "app_name": appNameController,
+            "year_award": appYearAwardController
+          })
           .then((value) => log("Updated"))
           .catchError((onError) => log(onError));
     }
@@ -82,7 +94,7 @@ class _UpdateWinnerState extends State<UpdateWinner> {
               padding: const EdgeInsets.all(8.0),
               child: ElevatedButton(
                 onPressed: () {
-                  print('UPDATE WINNER');
+                  _updateWinner();
                 },
                 child: const Text("UPDATE"),
               ),
